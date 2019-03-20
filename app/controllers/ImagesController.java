@@ -2,6 +2,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.inject.Inject;
+import controllers.security.Authenticator;
 import daos.ImageDao;
 import models.Image;
 import play.Logger;
@@ -30,6 +31,7 @@ public class ImagesController extends Controller {
         this.imageStore = imageStore;
         this.imageDao = imageDao;
     }
+
 
 
 
@@ -77,6 +79,7 @@ public class ImagesController extends Controller {
         return ok(result);
     }
 
+
     public Result downloadImage(String id) {
         final File file = imageStore.getImageById(id);
         //LOGGER.debug("extension is "+ extension);
@@ -87,6 +90,7 @@ public class ImagesController extends Controller {
         return ok(file);
     }
 
+
     public Result deleteImage(String id) {
         final boolean deleted = imageStore.deleteImageById(id);
         if (!deleted) {
@@ -95,6 +99,7 @@ public class ImagesController extends Controller {
 
         return ok();
     }
+
 
     @Transactional
     public Result getImagesByHomeId(Integer id) {

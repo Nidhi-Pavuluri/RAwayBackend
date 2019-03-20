@@ -140,13 +140,20 @@ public class Home {
             LOGGER.error("{}", e);
         }
     }
+    @Basic
+    @JsonProperty("address")
+    private String address;
 
+    @Basic
+    @JsonProperty("pincode")
+    private String pincode;
 
     public Home() {
 
     }
 
-    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool book, Bool deleteRequest) {
+
+    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool book, Bool deleteRequest, String[] imageUrls, String address, String pincode) {
         this.homeId = homeId;
         this.propertyType = propertyType;
         this.homeName = homeName;
@@ -161,6 +168,9 @@ public class Home {
         this.reportFlag = reportFlag;
         this.book = book;
         this.deleteRequest = deleteRequest;
+        this.imageUrls = imageUrls;
+        this.address = address;
+        this.pincode = pincode;
     }
 
     public static DateFormat getDateFormat() {
@@ -293,6 +303,22 @@ public class Home {
 
     public void setImageUrls(String[] imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPincode() {
+        return pincode;
+    }
+
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
     }
 }
 

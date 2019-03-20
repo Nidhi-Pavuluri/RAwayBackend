@@ -246,8 +246,9 @@ public class HomeDaoImpl implements HomeDao {
     @Override
     public Collection<Home> filters(Home home) {
 
-        Logger.debug("Debug"+home.getFromDate(), home.getToDate(), home.getGuestCount());
-        Logger.debug("Entered");
+        LOGGER.debug("From Date"+home.getFromDate());
+        LOGGER.debug("To date" + home.getToDate());
+        LOGGER.debug("Entered");
         List<Home> homes=null;
 
 
@@ -275,7 +276,7 @@ public class HomeDaoImpl implements HomeDao {
                     sb.append(" and propertyType = '3'");
                 }
             }
-//
+
             if(null != home.getGuestCount()){
                 sb.append(" and guestCount >= '"+home.getGuestCount()+"'");
             }

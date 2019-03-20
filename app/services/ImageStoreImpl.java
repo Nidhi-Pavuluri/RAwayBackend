@@ -34,7 +34,7 @@ public class ImageStoreImpl implements ImageStore {
     }
 
     @Override
-    public String save(Path source,String extension) {
+    public String save(Path source, String extension) {
 
         final String imageId = generateImageId();
         final Path destination = STORAGE_ROOT.resolve(imageId + extension);
@@ -42,7 +42,7 @@ public class ImageStoreImpl implements ImageStore {
 
         try {
             Files.move(source, destination);
-            return imageId;
+            return imageId.concat(extension);
         } catch (IOException e) {
             LOGGER.debug("Failed to move uploaded image into folder {}", destination);
             e.printStackTrace();
@@ -63,7 +63,7 @@ public class ImageStoreImpl implements ImageStore {
     @Override
     public File getImageById(String id) {
 
-        final File file = STORAGE_ROOT.resolve(id + ".jpg").toFile();
+        final File file = STORAGE_ROOT.resolve(id).toFile();
         if (!file.isFile()) {
             return null;
         }
@@ -75,7 +75,7 @@ public class ImageStoreImpl implements ImageStore {
     @Override
     public boolean deleteImageById(String id) {
 
-        final File file = STORAGE_ROOT.resolve(id + ".jpg").toFile();
+        final File file = STORAGE_ROOT.resolve(id).toFile();
         if (!file.isFile()) {
             return false;
         }
