@@ -1,0 +1,50 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+
+POST /users               controllers.UserController.registerUser()
+GET  /users/me            controllers.UserController.getCurrentUser()
+PUT /users/signin         controllers.UserController.signInUser()
+PUT /users/signout        controllers.UserController.signOutUser()
+PUT /users/update           controllers.UserController.updateUser()
+
+POST /images                controllers.ImagesController.uploadImage()
+GET /images/:id           controllers.ImagesController.downloadImage(id: String)
+DELETE /images/:id         controllers.ImagesController.deleteImage(id: String)
+GET /images/home/:id        controllers.ImagesController.getImagesByHomeId(id: Integer)
+
+
+
+
+POST /homes                              controllers.RHomeController.createHome()
+
+GET  /homes/:id                          controllers.RHomeController.getHomeByHomeId(id: Integer)
+GET  /approved                           controllers.RHomeController.getApprovedListofUsers()
+GET  /pending                            controllers.RHomeController.getPendingListofUsers()
+POST /homelist                           controllers.RHomeController.getHomeByUsername()
+
+
+GET  /reported                           controllers.RHomeController.getreportedListofUsers()
+POST  /homes1                            controllers.RHomeController.filters()
+POST  /homesearch                        controllers.RHomeController.homesearch()
+
+DELETE  /homes/admin/:id                controllers.RHomeController.requestedHomeDeletionByAdmin(id: Integer)
+DELETE /homes/report/:id                controllers.RHomeController.reportedHomeDeletionByAdmin(id: Integer)
+DELETE  /homes/users/:id                controllers.RHomeController.homeDeletionByUser(id: Integer)
+
+PUT  /homes/:id                         controllers.RHomeController.updateHomeBooking(id: Integer)
+PUT  /homes/pending/:id                 controllers.RHomeController.changePendingStatus(id :Integer)
+PUT  /homes/report/:id                  controllers.RHomeController.reportHome(id :Integer)
+PUT  /homes/deleterequest/:id           controllers.RHomeController.changeDeleteRequestStatus(id: Integer)
+
+
+
+
+# An example controller showing how to use dependency injection
+GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET     /message                    controllers.AsyncController.message
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
