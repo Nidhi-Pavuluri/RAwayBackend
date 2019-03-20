@@ -63,7 +63,7 @@ public class ImageStoreImpl implements ImageStore {
     @Override
     public File getImageById(String id) {
 
-        final File file = STORAGE_ROOT.resolve(id + ".png").toFile();
+        final File file = STORAGE_ROOT.resolve(id + ".jpg").toFile();
         if (!file.isFile()) {
             return null;
         }
@@ -75,7 +75,7 @@ public class ImageStoreImpl implements ImageStore {
     @Override
     public boolean deleteImageById(String id) {
 
-        final File file = STORAGE_ROOT.resolve(id + ".png").toFile();
+        final File file = STORAGE_ROOT.resolve(id + ".jpg").toFile();
         if (!file.isFile()) {
             return false;
         }

@@ -77,40 +77,6 @@ public class ImagesController extends Controller {
         return ok(result);
     }
 
-//    public String getExtension(){
-//
-//
-//        final Http.MultipartFormData<File> body = request().body().asMultipartFormData();
-//        if (null == body) {
-//            LOGGER.debug("body");
-//            return null;
-//        }
-//
-//        final Http.MultipartFormData.FilePart<File> image = body.getFile("file");
-//        if (null == image) {
-//            LOGGER.debug("image");
-//            return null;
-//        }
-//
-//        if (image.getContentType().equals("image/png")) {
-//
-//            extension = ".png";
-//            LOGGER.debug("extension is " + extension);
-//        }
-//
-//        else if(image.getContentType().equals("image/jpg")){
-//            extension = ".jpg";
-//            LOGGER.debug("extension is " + extension);
-//        }
-//
-//        else if(image.getContentType().equals("image/jpeg")){
-//            extension = ".jpeg";
-//            LOGGER.debug("extension is " + extension);
-//        }
-//        return extension;
-//
-//    }
-
     public Result downloadImage(String id) {
         final File file = imageStore.getImageById(id);
         //LOGGER.debug("extension is "+ extension);
