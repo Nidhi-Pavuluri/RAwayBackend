@@ -128,7 +128,6 @@ public class RHomeController extends Controller {
 
         final Home home = homeDao.findHomeById(id);
         String[] image_strings = imageDao.searchByHomeId(home.getHomeId());
-        //LOGGER.debug("img collection is "+ image_strings);
         home.setImageUrls(image_strings);
 
 
@@ -149,9 +148,10 @@ public class RHomeController extends Controller {
             return badRequest("Home Id must be provided");
         }
 
-
-
-        final Home newhome = homeDao.Bookupdate(id);
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        final Home newhome = homeDao.Bookupdate(existinghome);
 
         if (newhome != null) {
             final JsonNode result = Json.toJson(newhome);
@@ -161,6 +161,7 @@ public class RHomeController extends Controller {
         else {
             return notFound();
         }
+
     }
 
 
@@ -170,15 +171,21 @@ public class RHomeController extends Controller {
         if (null == id) {
             return badRequest("Home Id must be provided");
         }
-
-
-        final Home newhome = homeDao.deleteadmin(id);
-        final JsonNode result = Json.toJson(newhome);
-        for (String url : newhome.getImageUrls()) {
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        for (String url : existinghome.getImageUrls()) {
             imageDao.delete(url);
         }
+        final Home newhome = homeDao.deleteadmin(existinghome);
 
-        return ok(result);
+
+            for (String url : newhome.getImageUrls()) {
+                imageDao.delete(url);
+            }
+            final JsonNode result = Json.toJson(newhome);
+
+            return ok(result);
 
     }
 
@@ -188,12 +195,14 @@ public class RHomeController extends Controller {
         if (null == id) {
             return badRequest("Home Id must be provided");
         }
-
-
-        final Home newhome = homeDao.deleteReportadmin(id);
-        for (String url : newhome.getImageUrls()) {
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        for (String url : existinghome.getImageUrls()) {
             imageDao.delete(url);
         }
+        final Home newhome = homeDao.deleteReportadmin(existinghome);
+
         final JsonNode result = Json.toJson(newhome);
         return ok(result);
 
@@ -207,11 +216,13 @@ public class RHomeController extends Controller {
             return badRequest("Home Id must be provided");
         }
 
-
-        final Home newhome = homeDao.deleteuser(id);
-        for (String url : newhome.getImageUrls()) {
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        for (String url : existinghome.getImageUrls()) {
             imageDao.delete(url);
         }
+        final Home newhome = homeDao.deleteuser(existinghome);
         final JsonNode result = Json.toJson(newhome);
         return ok(result);
 
@@ -221,6 +232,12 @@ public class RHomeController extends Controller {
     public Result getPendingListofUsers() {
 
         Collection<Home> homes = homeDao.pendinglist();
+        for(Home home_new: homes ){
+            String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
+            LOGGER.debug("img collection is "+ image_strings);
+            home_new.setImageUrls(image_strings);
+        }
+
 
         final JsonNode result = Json.toJson(homes);
         return ok(result);
@@ -232,6 +249,11 @@ public class RHomeController extends Controller {
     public Result getApprovedListofUsers() {
 
         Collection<Home> homes = homeDao.approvedlist();
+        for(Home home_new: homes ){
+            String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
+            LOGGER.debug("img collection is "+ image_strings);
+            home_new.setImageUrls(image_strings);
+        }
 
         final JsonNode result = Json.toJson(homes);
         return ok(result);
@@ -243,6 +265,11 @@ public class RHomeController extends Controller {
     public Result getreportedListofUsers() {
 
         Collection<Home> homes = homeDao.reportlist();
+        for(Home home_new: homes ){
+            String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
+            LOGGER.debug("img collection is "+ image_strings);
+            home_new.setImageUrls(image_strings);
+        }
 
         final JsonNode result = Json.toJson(homes);
         return ok(result);
@@ -256,8 +283,10 @@ public class RHomeController extends Controller {
             return badRequest("Home Id must be provided");
         }
 
-
-        final Home newhome = homeDao.homeStatusupdate(id);
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        final Home newhome = homeDao.homeStatusupdate(existinghome);
 
         if (newhome != null) {
             final JsonNode result = Json.toJson(newhome);
@@ -282,7 +311,10 @@ public class RHomeController extends Controller {
         }
 
 
-        final Home newhome = homeDao.homeReportupdate(id);
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        final Home newhome = homeDao.homeReportupdate(existinghome);
 
         if (newhome != null) {
             final JsonNode result = Json.toJson(newhome);
@@ -304,8 +336,10 @@ public class RHomeController extends Controller {
             return badRequest("Home Id must be provided");
         }
 
-
-        final Home newhome = homeDao.deleteRequestUpdate(id);
+        final Home existinghome = homeDao.findHomeById(id);
+        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+        existinghome.setImageUrls(image_strings);
+        final Home newhome = homeDao.deleteRequestUpdate(existinghome);
 
         if (newhome != null) {
             final JsonNode result = Json.toJson(newhome);

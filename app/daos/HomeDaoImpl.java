@@ -38,16 +38,19 @@ public class HomeDaoImpl implements HomeDao {
     }
 
 
+    public Optional<Home> read(Integer Id) {
 
-    @Override
-    public Home Bookupdate(Integer id) {
-        if(null == id) {
-            throw new IllegalArgumentException("Home Id must be provided");
+        if (null == Id) {
+            throw new IllegalArgumentException("Id must be provided");
         }
 
+        final Home home = jpaApi.em().find(Home.class, Id);
+        return home != null ? Optional.of(home) : Optional.empty();
 
-        final Home existinghome = jpaApi.em().find(Home.class, id);
+    }
 
+    @Override
+    public Home Bookupdate(Home existinghome) {
 
         if(null == existinghome){
             throw new IllegalArgumentException("Invalid home");
@@ -62,12 +65,7 @@ public class HomeDaoImpl implements HomeDao {
     }
 
     @Override
-    public Home deleteadmin(Integer id) {
-        if(null == id){
-            throw new IllegalArgumentException("Home Id must be provided");
-        }
-
-        final Home existinghome = jpaApi.em().find(Home.class, id);
+    public Home deleteadmin(Home existinghome) {
 
         if(null == existinghome){
             throw new IllegalArgumentException("Invalid home");
@@ -85,12 +83,7 @@ public class HomeDaoImpl implements HomeDao {
 
 
     @Override
-    public Home deleteReportadmin(Integer id) {
-        if(null == id){
-            throw new IllegalArgumentException("Home Id must be provided");
-        }
-
-        final Home existinghome = jpaApi.em().find(Home.class,id);
+    public Home deleteReportadmin(Home existinghome) {
 
         if(null == existinghome){
             throw new IllegalArgumentException("Invalid home");
@@ -111,13 +104,8 @@ public class HomeDaoImpl implements HomeDao {
 
 
     @Override
-    public Home deleteuser(Integer id) {
+    public Home deleteuser(Home existinghome) {
 
-        if(null == id){
-            throw new IllegalArgumentException("Home Id must be provided");
-        }
-
-        final Home existinghome = jpaApi.em().find(Home.class, id);
 
         if(null == existinghome){
             throw new IllegalArgumentException("Invalid home");
@@ -128,7 +116,7 @@ public class HomeDaoImpl implements HomeDao {
         }
 
         if(Home.Bool.TRUE != existinghome.getDeleteRequest()){
-            final Home newhome = deleteRequestUpdate(id);
+            final Home newhome = deleteRequestUpdate(existinghome);
         }
 
         jpaApi.em().remove(existinghome);
@@ -138,13 +126,7 @@ public class HomeDaoImpl implements HomeDao {
     }
 
     @Override
-    public Home homeReportupdate(Integer id) {
-        if(null == id) {
-            throw new IllegalArgumentException("Home Id must be provided");
-        }
-
-
-        final Home existinghome = jpaApi.em().find(Home.class, id);
+    public Home homeReportupdate(Home existinghome) {
 
 
         if(null == existinghome){
@@ -160,14 +142,7 @@ public class HomeDaoImpl implements HomeDao {
     }
 
     @Override
-    public Home homeStatusupdate(Integer id) {
-        if(null == id) {
-            throw new IllegalArgumentException("Home Id must be provided");
-        }
-
-
-        final Home existinghome = jpaApi.em().find(Home.class, id);
-
+    public Home homeStatusupdate(Home existinghome) {
 
         if(null == existinghome){
             throw new IllegalArgumentException("Invalid home");
@@ -182,14 +157,7 @@ public class HomeDaoImpl implements HomeDao {
     }
 
     @Override
-    public Home deleteRequestUpdate(Integer id) {
-        if(null == id) {
-            throw new IllegalArgumentException("Home Id must be provided");
-        }
-
-
-        final Home existinghome = jpaApi.em().find(Home.class, id);
-
+    public Home deleteRequestUpdate(Home existinghome) {
 
         if(null == existinghome){
             throw new IllegalArgumentException("Invalid home");
@@ -207,11 +175,6 @@ public class HomeDaoImpl implements HomeDao {
     public Collection<Home> pendinglist() {
         TypedQuery<Home> query = jpaApi.em().createQuery("SELECT h FROM Home h WHERE houseStatus= 0", Home.class);
         List<Home> homes = query.getResultList();
-        for(Home home_new: homes ){
-            String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
-            LOGGER.debug("img collection is "+ image_strings);
-            home_new.setImageUrls(image_strings);
-        }
 
         return homes;
     }

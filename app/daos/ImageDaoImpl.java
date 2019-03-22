@@ -56,16 +56,16 @@ public class ImageDaoImpl implements daos.ImageDao {
     }
 
     @Override
-    public Image delete(String id) {
+    public Image delete(String imageUrl) {
 
-        if(null == id){
+        if(null == imageUrl){
             throw new IllegalArgumentException("Image Id must be provided");
         }
-
-        final Image existingimage = jpaApi.em().find(Image.class, id);
+        //LOGGER.debug("url id is "+id);
+        final Image existingimage = jpaApi.em().find(Image.class, imageUrl);
 
         if(null == existingimage){
-            throw new IllegalArgumentException("Invalid home");
+            throw new IllegalArgumentException("Invalid Image");
         }
 
         jpaApi.em().remove(existingimage);

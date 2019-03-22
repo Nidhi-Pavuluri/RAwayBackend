@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import play.Logger;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -148,12 +149,23 @@ public class Home {
     @JsonProperty("pincode")
     private String pincode;
 
+    @Basic
+    @JsonProperty("description")
+    private String description;
+
+    @Basic
+    @JsonProperty("latitude")
+    private String latitude;
+
+    @Basic
+    @JsonProperty("longitude")
+    private String longitude;
     public Home() {
 
     }
 
 
-    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool book, Bool deleteRequest, String[] imageUrls, String address, String pincode) {
+    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool book, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude) {
         this.homeId = homeId;
         this.propertyType = propertyType;
         this.homeName = homeName;
@@ -171,7 +183,11 @@ public class Home {
         this.imageUrls = imageUrls;
         this.address = address;
         this.pincode = pincode;
+        this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
+
 
     public static DateFormat getDateFormat() {
         return DATE_FORMAT;
@@ -319,6 +335,30 @@ public class Home {
 
     public void setPincode(String pincode) {
         this.pincode = pincode;
+    }
+
+    public String getDescrition() {
+        return description;
+    }
+
+    public void setDescrition(String descrition) {
+        this.description = descrition;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }
 

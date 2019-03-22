@@ -92,11 +92,11 @@ public class ImagesController extends Controller {
 
 
     public Result deleteImage(String id) {
-        final boolean deleted = imageStore.deleteImageById(id);
-        if (!deleted) {
+        final Image newImage = imageDao.delete(id);
+        final Boolean deleted = imageStore.deleteImageById(id);
+        if(deleted!=true){
             return notFound("Image not found");
         }
-
         return ok();
     }
 
