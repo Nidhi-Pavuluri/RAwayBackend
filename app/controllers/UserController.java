@@ -236,5 +236,23 @@ public class UserController extends Controller {
         return ok(result);
     }
 
+    @Transactional
+    public Result changePendingStatus(Integer id) {
 
-}
+        if (null == id) {
+            return badRequest("Home Id must be provided");
+        }
+
+        final User existingUser = userDao.findUserById(id);
+        final User newUser = userDao.homeRoleUpdate(existingUser);
+
+        if (newUser != null) {
+            final JsonNode result = Json.toJson(newUser);
+            return ok(result);
+        } else {
+            return notFound();
+        }
+    }
+
+
+    }

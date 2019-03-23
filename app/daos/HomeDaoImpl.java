@@ -172,8 +172,16 @@ public class HomeDaoImpl implements HomeDao {
     }
 
     @Override
-    public Collection<Home> pendinglist() {
-        TypedQuery<Home> query = jpaApi.em().createQuery("SELECT h FROM Home h WHERE houseStatus= 0", Home.class);
+    public Collection<Home> pendingListings() {
+        TypedQuery<Home> query = jpaApi.em().createQuery("SELECT h FROM Home h WHERE houseStatus= 0 and user.role = 2", Home.class);
+        List<Home> homes = query.getResultList();
+
+        return homes;
+    }
+
+    @Override
+    public Collection<Home> pendingUsers() {
+        TypedQuery<Home> query = jpaApi.em().createQuery("SELECT h FROM Home h WHERE user.role =1 and houseStatus= 0", Home.class);
         List<Home> homes = query.getResultList();
 
         return homes;
@@ -357,7 +365,7 @@ public class HomeDaoImpl implements HomeDao {
             throw new IllegalArgumentException("Id must be provided");
         }
 
-
+        LOGGER.debug("home id is " + id);
         final Home existinghome = jpaApi.em().find(Home.class,id);
 
 

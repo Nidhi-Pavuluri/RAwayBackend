@@ -229,9 +229,25 @@ public class RHomeController extends Controller {
     }
 
     @Transactional
+    public Result getPendingListings() {
+
+        Collection<Home> homes = homeDao.pendingListings();
+        for(Home home_new: homes ){
+            String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
+            LOGGER.debug("img collection is "+ image_strings);
+            home_new.setImageUrls(image_strings);
+        }
+
+
+        final JsonNode result = Json.toJson(homes);
+        return ok(result);
+
+    }
+
+    @Transactional
     public Result getPendingListofUsers() {
 
-        Collection<Home> homes = homeDao.pendinglist();
+        Collection<Home> homes = homeDao.pendingUsers();
         for(Home home_new: homes ){
             String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
             LOGGER.debug("img collection is "+ image_strings);

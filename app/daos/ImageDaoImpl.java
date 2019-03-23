@@ -4,6 +4,7 @@ import controllers.HomeController;
 import models.Image;
 import play.Logger;
 import play.db.jpa.JPAApi;
+import services.ImageStore;
 
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -18,10 +19,12 @@ public class ImageDaoImpl implements daos.ImageDao {
     private final static Logger.ALogger LOGGER = Logger.of(HomeController.class);
 
     final JPAApi jpaApi;
+    private ImageStore imageStore;
 
     @Inject
-    public ImageDaoImpl(JPAApi jpaApi) {
+    public ImageDaoImpl(JPAApi jpaApi, ImageStore imageStore) {
         this.jpaApi = jpaApi;
+        this.imageStore = imageStore;
     }
 
 //    @Override
@@ -58,6 +61,7 @@ public class ImageDaoImpl implements daos.ImageDao {
     @Override
     public Image delete(String imageUrl) {
 
+        //LOGGER.debug("id from url is" + imageUrl.substring(31));
         if(null == imageUrl){
             throw new IllegalArgumentException("Image Id must be provided");
         }
@@ -68,7 +72,9 @@ public class ImageDaoImpl implements daos.ImageDao {
             throw new IllegalArgumentException("Invalid Image");
         }
 
+        //imageStore.deleteImageById(imageUrl.substring(31));
         jpaApi.em().remove(existingimage);
+
 
         return existingimage;
 

@@ -92,7 +92,7 @@ public class ImagesController extends Controller {
 
 
     public Result deleteImage(String id) {
-        final Image newImage = imageDao.delete(id);
+        //final Image newImage = imageDao.delete(id);
         final Boolean deleted = imageStore.deleteImageById(id);
         if(deleted!=true){
             return notFound("Image not found");
@@ -107,7 +107,6 @@ public class ImagesController extends Controller {
         final JsonNode result = Json.toJson(images);
         return ok(result);
     }
-
 
 
 }

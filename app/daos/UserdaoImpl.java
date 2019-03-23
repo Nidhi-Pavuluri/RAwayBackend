@@ -120,5 +120,41 @@ public class UserdaoImpl implements Userdao{
 
     }
 
+    @Override
+    public User homeRoleUpdate(User existingUser) {
+        if(null == existingUser){
+            throw new IllegalArgumentException("Invalid home");
+        }
+
+        //existingUser.setHouseStatus(Home.HouseStatus.APPROVED);
+        existingUser.setRole(User.Role.HOST);
+
+
+        jpaApi.em().persist(existingUser);
+        return existingUser;
+    }
+
+    @Override
+    public User findUserById(Integer  id) {
+
+        if(null == id){
+            throw new IllegalArgumentException("Id must be provided");
+        }
+
+
+        final User existingUser = jpaApi.em().find(User.class,id);
+
+
+        if(null == existingUser){
+            throw new IllegalArgumentException("Invalid home");
+        }
+
+        //LOGGER.debug("urls are"+ imageDao.searchByHomeId(36));
+        return existingUser;
+
+
+
+    }
+
 
 }

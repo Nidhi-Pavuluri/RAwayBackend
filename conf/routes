@@ -7,7 +7,8 @@ POST /users               controllers.UserController.registerUser()
 GET  /users/me            controllers.UserController.getCurrentUser()
 PUT /users/signin         controllers.UserController.signInUser()
 PUT /users/signout        controllers.UserController.signOutUser()
-PUT /users/update           controllers.UserController.updateUser()
+PUT /users/update         controllers.UserController.updateUser()
+PUT /users/pending/:id    controllers.UserController.changePendingStatus(id :Integer)
 
 POST /images                controllers.ImagesController.uploadImage()
 GET /images/:id           controllers.ImagesController.downloadImage(id: String)
@@ -21,7 +22,8 @@ POST /homes                              controllers.RHomeController.createHome(
 
 GET  /homes/:id                          controllers.RHomeController.getHomeByHomeId(id: Integer)
 GET  /approved                           controllers.RHomeController.getApprovedListofUsers()
-GET  /pending                            controllers.RHomeController.getPendingListofUsers()
+GET  /pendingListings                    controllers.RHomeController.getPendingListings()
+GET  /pendingUsers                       controllers.RHomeController.getPendingListofUsers()
 POST /homelist                           controllers.RHomeController.getHomeByUsername()
 
 

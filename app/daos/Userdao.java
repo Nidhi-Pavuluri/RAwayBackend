@@ -12,5 +12,7 @@ public interface Userdao{
     User findUserByName(String username);
     User findUserByAuthToken(String authToken);
     User updateaccessToken(User user);
+    User homeRoleUpdate(User user);
+    User findUserById(Integer  id);
 
 }

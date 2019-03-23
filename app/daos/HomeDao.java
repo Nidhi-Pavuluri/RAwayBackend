@@ -15,7 +15,8 @@ public interface HomeDao {
     Home deleteReportadmin(Home home);
     Home homeStatusupdate(Home home);
     Home deleteRequestUpdate(Home home);
-    Collection<Home> pendinglist();
+    Collection<Home> pendingListings();
+    Collection<Home> pendingUsers();
     Collection<Home> searchByUsername(String username);
     Collection<Home> approvedlist();
     Collection<Home> reportlist();
