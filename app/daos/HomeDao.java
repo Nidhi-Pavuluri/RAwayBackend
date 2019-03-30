@@ -8,7 +8,6 @@ public interface HomeDao {
     Home create(Home home);
     Optional<Home> read(Integer id);
     Home findHomeById(Integer id);
-   Home Bookupdate(Home home);
     Home deleteadmin (Home home );
     Home deleteuser (Home home);
     Home homeReportupdate(Home home);

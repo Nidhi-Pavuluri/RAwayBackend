@@ -240,11 +240,11 @@ public class UserController extends Controller {
     public Result changePendingStatus(Integer id) {
 
         if (null == id) {
-            return badRequest("Home Id must be provided");
+            return badRequest("User Id must be provided");
         }
 
         final User existingUser = userDao.findUserById(id);
-        final User newUser = userDao.homeRoleUpdate(existingUser);
+        final User newUser = userDao.userRoleUpdate(existingUser);
 
         if (newUser != null) {
             final JsonNode result = Json.toJson(newUser);
@@ -254,5 +254,15 @@ public class UserController extends Controller {
         }
     }
 
+//    @Transactional
+//    public Result getPendingListofUsers() {
+//
+//        Collection<User> users = userDao.pendingUsers();
+//        final JsonNode result = Json.toJson(users);
+//        return ok(result);
+//
+//    }
 
-    }
+
+
+}

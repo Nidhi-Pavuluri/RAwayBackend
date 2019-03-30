@@ -103,6 +103,7 @@ public class User {
     private String address;
 
 
+
     @Basic
     @JsonIgnore
     private Date dob;
@@ -128,7 +129,9 @@ public class User {
 
 
 
-
+    public  String toString(){
+        return "user id" + userId ;
+   }
 
     public User() {
     }

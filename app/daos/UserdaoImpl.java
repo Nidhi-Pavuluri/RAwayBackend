@@ -121,9 +121,9 @@ public class UserdaoImpl implements Userdao{
     }
 
     @Override
-    public User homeRoleUpdate(User existingUser) {
+    public User userRoleUpdate(User existingUser) {
         if(null == existingUser){
-            throw new IllegalArgumentException("Invalid home");
+            throw new IllegalArgumentException("Invalid user");
         }
 
         //existingUser.setHouseStatus(Home.HouseStatus.APPROVED);
@@ -146,7 +146,7 @@ public class UserdaoImpl implements Userdao{
 
 
         if(null == existingUser){
-            throw new IllegalArgumentException("Invalid home");
+            throw new IllegalArgumentException("Invalid User");
         }
 
         //LOGGER.debug("urls are"+ imageDao.searchByHomeId(36));
@@ -155,6 +155,15 @@ public class UserdaoImpl implements Userdao{
 
 
     }
+
+//    @Override
+//    public Collection<User> pendingUsers() {
+//        TypedQuery<User> query = jpaApi.em().createQuery("SELECT u FROM User u WHERE home.houseStatus= 0 and user.role = 1", User.class);
+//        List<User> users = query.getResultList();
+//
+//        return users;
+//
+//    }
 
 
 }

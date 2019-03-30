@@ -14,7 +14,6 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name="id")
-
     @JsonIgnore
     private Home home;
 

@@ -20,6 +20,7 @@ public class Module extends AbstractModule {
     public void configure() {
 
         bind(HomeDao.class).to(HomeDaoImpl.class);
+        bind(BookingDao.class).to(BookingDaoImpl.class);
         bind(Userdao.class).to(UserdaoImpl.class);
         bind(ImageStore.class).to(ImageStoreImpl.class);
         bind(daos.ImageDao.class).to(ImageDaoImpl.class);

@@ -92,9 +92,6 @@ public class Home {
     private Integer reportFlag;
 
 
-    @Basic
-    @JsonProperty("book")
-    private Bool book;
 
     @Basic
     @JsonProperty("deleteRequest")
@@ -104,9 +101,9 @@ public class Home {
     @JsonProperty("imageUrls")
     private String[] imageUrls;
 
-    public  String toString(){
-        return "Fromdate" + fromDate ;
-    }
+//    public  String toString(){
+//        return "Fromdate" + fromDate ;
+//    }
 
 
     @JsonProperty("toDate")
@@ -160,12 +157,15 @@ public class Home {
     @Basic
     @JsonProperty("longitude")
     private String longitude;
+
+    @Transient
+    @JsonProperty("bookingIds")
+    private Integer[] bookingIds;
     public Home() {
 
     }
 
-
-    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool book, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude) {
+    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude, Integer[] bookingIds) {
         this.homeId = homeId;
         this.propertyType = propertyType;
         this.homeName = homeName;
@@ -178,7 +178,6 @@ public class Home {
         this.amenities = amenities;
         this.user = user;
         this.reportFlag = reportFlag;
-        this.book = book;
         this.deleteRequest = deleteRequest;
         this.imageUrls = imageUrls;
         this.address = address;
@@ -186,8 +185,8 @@ public class Home {
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.bookingIds = bookingIds;
     }
-
 
     public static DateFormat getDateFormat() {
         return DATE_FORMAT;
@@ -289,14 +288,6 @@ public class Home {
     }
 
 
-    public Bool getBook() {
-        return book;
-    }
-
-    public void setBook(Bool book) {
-        this.book = book;
-    }
-
     public Bool getDeleteRequest() {
         return deleteRequest;
     }
@@ -337,13 +328,8 @@ public class Home {
         this.pincode = pincode;
     }
 
-    public String getDescrition() {
-        return description;
-    }
 
-    public void setDescrition(String descrition) {
-        this.description = descrition;
-    }
+
 
     public String getLatitude() {
         return latitude;
@@ -359,6 +345,22 @@ public class Home {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer[] getBookingIds() {
+        return bookingIds;
+    }
+
+    public void setBookingIds(Integer[] bookingIds) {
+        this.bookingIds = bookingIds;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

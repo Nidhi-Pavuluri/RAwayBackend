@@ -49,20 +49,6 @@ public class HomeDaoImpl implements HomeDao {
 
     }
 
-    @Override
-    public Home Bookupdate(Home existinghome) {
-
-        if(null == existinghome){
-            throw new IllegalArgumentException("Invalid home");
-        }
-
-        existinghome.setBook(Home.Bool.TRUE);
-
-
-        jpaApi.em().persist(existinghome);
-        return existinghome;
-
-    }
 
     @Override
     public Home deleteadmin(Home existinghome) {

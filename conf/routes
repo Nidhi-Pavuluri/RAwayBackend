@@ -15,6 +15,8 @@ GET /images/:id           controllers.ImagesController.downloadImage(id: String)
 DELETE /images/:id         controllers.ImagesController.deleteImage(id: String)
 GET /images/home/:id        controllers.ImagesController.getImagesByHomeId(id: Integer)
 
+POST /booking               controllers.BookingController.createBooking()
+
 
 
 
@@ -25,6 +27,7 @@ GET  /approved                           controllers.RHomeController.getApproved
 GET  /pendingListings                    controllers.RHomeController.getPendingListings()
 GET  /pendingUsers                       controllers.RHomeController.getPendingListofUsers()
 POST /homelist                           controllers.RHomeController.getHomeByUsername()
+PUT /homes/pending/:id                   controllers.RHomeController.changePendingStatus(id :Integer)
 
 
 GET  /reported                           controllers.RHomeController.getreportedListofUsers()

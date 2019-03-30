@@ -5,6 +5,8 @@ import controllers.security.Authenticator;
 import controllers.security.IsAdmin;
 import daos.ImageDao;
 import daos.HomeDao;
+import jdk.nashorn.internal.parser.JSONParser;
+import models.Booking;
 import models.Home;
 import models.Image;
 import models.User;
@@ -13,6 +15,7 @@ import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.util.parsing.json.JSONObject;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -52,7 +55,6 @@ public class RHomeController extends Controller {
 
         home.setHouseStatus(Home.HouseStatus.PENDING);
         home.setReportFlag(0);
-        home.setBook(Home.Bool.FALSE);
         home.setDeleteRequest(Home.Bool.FALSE);
 
         LOGGER.debug("todate is"+home.getToDate());
@@ -65,7 +67,16 @@ public class RHomeController extends Controller {
             image.setHome(newHome);
             imageDao.create(image);
         }
-
+//        for (Integer id : home.getBookingIds()) {
+//            final Booking booking = new Booking();
+//            booking.setBookingId(id);
+//            booki
+//
+//
+//            ng.setHome(newHome);
+//            Dao.create(image);
+//        }
+//
 
 
         final JsonNode result = Json.toJson(newHome);
@@ -141,28 +152,28 @@ public class RHomeController extends Controller {
         }
     }
 
-    @Transactional
-    public Result updateHomeBooking(Integer id) {
-
-        if (null == id) {
-            return badRequest("Home Id must be provided");
-        }
-
-        final Home existinghome = homeDao.findHomeById(id);
-        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
-        existinghome.setImageUrls(image_strings);
-        final Home newhome = homeDao.Bookupdate(existinghome);
-
-        if (newhome != null) {
-            final JsonNode result = Json.toJson(newhome);
-            return ok(result);
-        }
-
-        else {
-            return notFound();
-        }
-
-    }
+//    @Transactional
+//    public Result updateHomeBooking(Integer id) {
+//
+//        if (null == id) {
+//            return badRequest("Home Id must be provided");
+//        }
+//
+//        final Home existinghome = homeDao.findHomeById(id);
+//        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
+//        existinghome.setImageUrls(image_strings);
+//        final Home newhome = homeDao.Bookupdate(existinghome);
+//
+//        if (newhome != null) {
+//            final JsonNode result = Json.toJson(newhome);
+//            return ok(result);
+//        }
+//
+//        else {
+//            return notFound();
+//        }
+//
+//    }
 
 
     @Transactional
@@ -254,8 +265,13 @@ public class RHomeController extends Controller {
             home_new.setImageUrls(image_strings);
         }
 
+        Map<Integer, String> users = new HashMap<>();
+        for(Home home_new: homes ){
+            users.put(home_new.getUser().getUserId(),home_new.getUser().getUsername());
+        }
+        //JSONObject object = (JSONObject) new JSONParser().parse(JSONObject.toJSONString(users));
 
-        final JsonNode result = Json.toJson(homes);
+        final JsonNode result = Json.toJson(users);
         return ok(result);
 
     }
