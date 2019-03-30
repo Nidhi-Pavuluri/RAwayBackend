@@ -16,6 +16,7 @@ DELETE /images/:id         controllers.ImagesController.deleteImage(id: String)
 GET /images/home/:id        controllers.ImagesController.getImagesByHomeId(id: Integer)
 
 POST /booking               controllers.BookingController.createBooking()
+GET  /bookingsByHome/:id    controllers.BookingController.getDatesByHomeId(id: Integer)
 
 
 
@@ -38,7 +39,6 @@ DELETE  /homes/admin/:id                controllers.RHomeController.requestedHom
 DELETE /homes/report/:id                controllers.RHomeController.reportedHomeDeletionByAdmin(id: Integer)
 DELETE  /homes/users/:id                controllers.RHomeController.homeDeletionByUser(id: Integer)
 
-PUT  /homes/:id                         controllers.RHomeController.updateHomeBooking(id: Integer)
 PUT  /homes/pending/:id                 controllers.RHomeController.changePendingStatus(id :Integer)
 PUT  /homes/report/:id                  controllers.RHomeController.reportHome(id :Integer)
 PUT  /homes/deleterequest/:id           controllers.RHomeController.changeDeleteRequestStatus(id: Integer)

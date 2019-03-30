@@ -25,7 +25,7 @@ public class Booking {
     @JsonIgnore
     private Home home;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "userId")
     @JsonIgnore
     private User user;

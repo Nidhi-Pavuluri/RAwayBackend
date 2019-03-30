@@ -57,7 +57,7 @@ public class HomeDaoImpl implements HomeDao {
             throw new IllegalArgumentException("Invalid home");
         }
 
-        if(Home.HouseStatus.APPROVED!=existinghome.getHouseStatus() || Home.Bool.TRUE != existinghome.getDeleteRequest()|| Home.Bool.FALSE != existinghome.getBook()){
+        if(Home.HouseStatus.APPROVED!=existinghome.getHouseStatus() || Home.Bool.TRUE != existinghome.getDeleteRequest()){
             throw new IllegalArgumentException("Home cannot be deleted");
         }
         jpaApi.em().remove(existinghome);
@@ -75,7 +75,7 @@ public class HomeDaoImpl implements HomeDao {
             throw new IllegalArgumentException("Invalid home");
         }
 
-        if(Home.HouseStatus.APPROVED!=existinghome.getHouseStatus() || existinghome.getReportFlag() <= 3 || Home.Bool.FALSE != existinghome.getBook()){
+        if(Home.HouseStatus.APPROVED!=existinghome.getHouseStatus() || existinghome.getReportFlag() <= 3 ){
             throw new IllegalArgumentException("Home cannot be deleted");
         }
         jpaApi.em().remove(existinghome);
@@ -97,7 +97,7 @@ public class HomeDaoImpl implements HomeDao {
             throw new IllegalArgumentException("Invalid home");
         }
 
-        if(Home.HouseStatus.PENDING !=existinghome.getHouseStatus() && Home.Bool.FALSE != existinghome.getBook()){
+        if(Home.HouseStatus.PENDING !=existinghome.getHouseStatus()){
             throw new IllegalArgumentException("Home cannot be deleted");
         }
 
@@ -210,7 +210,7 @@ public class HomeDaoImpl implements HomeDao {
 
 
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT h from Home h WHERE houseStatus = 1  and book = 1 and deleteRequest = 1");
+        sb.append("SELECT h from Home h WHERE houseStatus = 1 and deleteRequest = 1");
 
     //book status should be false and house status should be approved and delete request should be false
 

@@ -14,6 +14,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import java.util.Collection;
 
 public class BookingController extends Controller {
     final HomeDao homeDao;
@@ -56,9 +57,18 @@ public class BookingController extends Controller {
 
     }
 
-//    @Transactional
-//    @Authenticator
-//    public Result getDatesByHomeId(){
-//
-//    }
+    @Transactional
+    @Authenticator
+    public Result getDatesByHomeId(Integer id){
+
+        if (null == id) {
+            return badRequest("Home Id must be provided");
+        }
+
+        Collection<Booking> newBookings = bookingDao.getBookingsByHomeId(id);
+        
+        final JsonNode result = Json.toJson(newBookings);
+
+        return ok(result);
+    }
 }
