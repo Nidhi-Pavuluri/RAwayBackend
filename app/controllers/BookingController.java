@@ -14,6 +14,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import java.util.Collection;
 
 public class BookingController extends Controller {
@@ -58,14 +59,18 @@ public class BookingController extends Controller {
     }
 
     @Transactional
-    @Authenticator
     public Result getDatesByHomeId(Integer id){
+        Collection<Booking> newBookings =null;
 
         if (null == id) {
             return badRequest("Home Id must be provided");
         }
-
-        Collection<Booking> newBookings = bookingDao.getBookingsByHomeId(id);
+        try{
+        newBookings = bookingDao.getBookingsByHomeId(id);
+        }
+        catch (NoResultException nre){
+            throw new IllegalArgumentException("No bookings found for the given home id");
+        }
         
         final JsonNode result = Json.toJson(newBookings);
 
