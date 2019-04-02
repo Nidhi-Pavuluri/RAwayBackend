@@ -5,6 +5,7 @@ import controllers.security.Authenticator;
 import controllers.security.IsAdmin;
 import daos.ImageDao;
 import daos.HomeDao;
+import daos.RatingDao;
 import jdk.nashorn.internal.parser.JSONParser;
 import models.Booking;
 import models.Home;
@@ -26,12 +27,17 @@ public class RHomeController extends Controller {
 
     final HomeDao homeDao;
     private ImageDao imageDao;
+    private RatingDao ratingDao;
 
     @Inject
-    public RHomeController(HomeDao homeDao, ImageDao imageDao) {
+    public RHomeController(HomeDao homeDao, ImageDao imageDao, RatingDao ratingDao) {
         this.homeDao = homeDao;
         this.imageDao = imageDao;
+        this.ratingDao = ratingDao;
     }
+
+
+
 
 
     @Transactional
@@ -56,6 +62,7 @@ public class RHomeController extends Controller {
         home.setHouseStatus(Home.HouseStatus.PENDING);
         home.setReportFlag(0);
         home.setDeleteRequest(Home.Bool.FALSE);
+        home.setRating(0);
 
         LOGGER.debug("todate is"+home.getToDate());
 
@@ -140,6 +147,7 @@ public class RHomeController extends Controller {
         final Home home = homeDao.findHomeById(id);
         String[] image_strings = imageDao.searchByHomeId(home.getHomeId());
         home.setImageUrls(image_strings);
+        //home.setRating(ratingDao.getRatingsByHomeId(id));
 
 
         if (home != null) {
@@ -151,30 +159,6 @@ public class RHomeController extends Controller {
             return notFound();
         }
     }
-
-//    @Transactional
-//    public Result updateHomeBooking(Integer id) {
-//
-//        if (null == id) {
-//            return badRequest("Home Id must be provided");
-//        }
-//
-//        final Home existinghome = homeDao.findHomeById(id);
-//        String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
-//        existinghome.setImageUrls(image_strings);
-//        final Home newhome = homeDao.Bookupdate(existinghome);
-//
-//        if (newhome != null) {
-//            final JsonNode result = Json.toJson(newhome);
-//            return ok(result);
-//        }
-//
-//        else {
-//            return notFound();
-//        }
-//
-//    }
-
 
     @Transactional
     public Result requestedHomeDeletionByAdmin(Integer id) {
@@ -247,6 +231,9 @@ public class RHomeController extends Controller {
             String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
             LOGGER.debug("img collection is "+ image_strings);
             home_new.setImageUrls(image_strings);
+            //home_new.setRating(ratingDao.getRatingsByHomeId(home_new.getHomeId()));
+
+
         }
 
 
@@ -318,6 +305,7 @@ public class RHomeController extends Controller {
         final Home existinghome = homeDao.findHomeById(id);
         String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
         existinghome.setImageUrls(image_strings);
+        //to write
         final Home newhome = homeDao.homeStatusupdate(existinghome);
 
         if (newhome != null) {
@@ -336,6 +324,7 @@ public class RHomeController extends Controller {
 
 
     @Transactional
+    @Authenticator
     public Result reportHome(Integer id) {
 
         if (null == id) {
@@ -343,9 +332,11 @@ public class RHomeController extends Controller {
         }
 
 
+        final User user = (User) ctx().args.get("user");
         final Home existinghome = homeDao.findHomeById(id);
         String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
         existinghome.setImageUrls(image_strings);
+        existinghome.setRating(ratingDao.getRatingsByHomeId(existinghome.getHomeId()));
         final Home newhome = homeDao.homeReportupdate(existinghome);
 
         if (newhome != null) {
@@ -371,6 +362,7 @@ public class RHomeController extends Controller {
         final Home existinghome = homeDao.findHomeById(id);
         String[] image_strings = imageDao.searchByHomeId(existinghome.getHomeId());
         existinghome.setImageUrls(image_strings);
+      //  existinghome.setRating(ratingDao.getRatingsByHomeId(existinghome.getHomeId()));
         final Home newhome = homeDao.deleteRequestUpdate(existinghome);
 
         if (newhome != null) {
@@ -398,6 +390,7 @@ public class RHomeController extends Controller {
             String[] image_strings = imageDao.searchByHomeId(home_new.getHomeId());
             LOGGER.debug("img collection is "+ image_strings);
             home_new.setImageUrls(image_strings);
+            //home_new.setRating(ratingDao.getRatingsByHomeId(home_new.getHomeId()));
         }
 
         final JsonNode result = Json.toJson(homes);

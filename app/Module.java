@@ -21,6 +21,7 @@ public class Module extends AbstractModule {
 
         bind(HomeDao.class).to(HomeDaoImpl.class);
         bind(BookingDao.class).to(BookingDaoImpl.class);
+        bind(RatingDao.class).to(RatingDaoImpl.class);
         bind(Userdao.class).to(UserdaoImpl.class);
         bind(ImageStore.class).to(ImageStoreImpl.class);
         bind(daos.ImageDao.class).to(ImageDaoImpl.class);

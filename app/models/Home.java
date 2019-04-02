@@ -161,11 +161,15 @@ public class Home {
     @Transient
     @JsonProperty("bookingIds")
     private Integer[] bookingIds;
-    public Home() {
 
-    }
 
-    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude, Integer[] bookingIds) {
+    @Basic
+    @JsonProperty("Rating")
+    private Integer Rating;
+
+
+
+    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude, Integer[] bookingIds, Integer rating) {
         this.homeId = homeId;
         this.propertyType = propertyType;
         this.homeName = homeName;
@@ -186,6 +190,10 @@ public class Home {
         this.latitude = latitude;
         this.longitude = longitude;
         this.bookingIds = bookingIds;
+        Rating = rating;
+    }
+
+    public Home() {
     }
 
     public static DateFormat getDateFormat() {
@@ -361,6 +369,14 @@ public class Home {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getRating() {
+        return Rating;
+    }
+
+    public void setRating(Integer rating) {
+        Rating = rating;
     }
 }
 
