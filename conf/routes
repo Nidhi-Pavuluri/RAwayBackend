@@ -24,27 +24,27 @@ GET  /ratingsByHome/:id    controllers.RatingController.getAvgRatingsByHome(id: 
 
 
 
-POST /homes                              controllers.RHomeController.createHome()
+POST /homes                              controllers.HomeController.createHome()
 
-GET  /homes/:id                          controllers.RHomeController.getHomeByHomeId(id: Integer)
-GET  /approved                           controllers.RHomeController.getApprovedListofUsers()
-GET  /pendingListings                    controllers.RHomeController.getPendingListings()
-GET  /pendingUsers                       controllers.RHomeController.getPendingListofUsers()
-POST /homelist                           controllers.RHomeController.getHomeByUsername()
-PUT /homes/pending/:id                   controllers.RHomeController.changePendingStatus(id :Integer)
+GET  /homes/:id                          controllers.HomeController.getHomeByHomeId(id: Integer)
+GET  /approved                           controllers.HomeController.getApprovedListofUsers()
+GET  /pendingListings                    controllers.HomeController.getPendingListings()
+GET  /pendingUsers                       controllers.HomeController.getPendingListofUsers()
+POST /homelist                           controllers.HomeController.getHomeByUsername()
+PUT /homes/pending/:id                   controllers.HomeController.changePendingStatus(id :Integer)
 
 
-GET  /reported                           controllers.RHomeController.getreportedListofUsers()
-POST  /homes1                            controllers.RHomeController.filters()
-POST  /homesearch                        controllers.RHomeController.homesearch()
+GET  /reported                           controllers.HomeController.getreportedListofUsers()
+POST  /homes1                            controllers.HomeController.filters()
+POST  /homesearch                        controllers.HomeController.homesearch()
 
-DELETE  /homes/admin/:id                controllers.RHomeController.requestedHomeDeletionByAdmin(id: Integer)
-DELETE /homes/report/:id                controllers.RHomeController.reportedHomeDeletionByAdmin(id: Integer)
-DELETE  /homes/users/:id                controllers.RHomeController.homeDeletionByUser(id: Integer)
+DELETE  /homes/admin/:id                controllers.HomeController.requestedHomeDeletionByAdmin(id: Integer)
+DELETE /homes/report/:id                controllers.HomeController.reportedHomeDeletionByAdmin(id: Integer)
+DELETE  /homes/users/:id                controllers.HomeController.homeDeletionByUser(id: Integer)
 
-PUT  /homes/pending/:id                 controllers.RHomeController.changePendingStatus(id :Integer)
-PUT  /homes/report/:id                  controllers.RHomeController.reportHome(id :Integer)
-PUT  /homes/deleterequest/:id           controllers.RHomeController.changeDeleteRequestStatus(id: Integer)
+PUT  /homes/pending/:id                 controllers.HomeController.changePendingStatus(id :Integer)
+PUT  /homes/report/:id                  controllers.HomeController.reportHome(id :Integer)
+PUT  /homes/deleterequest/:id           controllers.HomeController.changeDeleteRequestStatus(id: Integer)
 
 
 
