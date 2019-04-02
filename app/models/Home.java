@@ -165,11 +165,11 @@ public class Home {
 
     @Basic
     @JsonProperty("Rating")
-    private Integer Rating;
+    private Double Rating;
 
 
 
-    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude, Integer[] bookingIds, Integer rating) {
+    public Home(Integer homeId, PropertyType propertyType, String homeName, Integer guestCount, String location, Date fromDate, Date toDate, Integer price, HouseStatus houseStatus, Amenities amenities, User user, Integer reportFlag, Bool deleteRequest, String[] imageUrls, String address, String pincode, String description, String latitude, String longitude, Integer[] bookingIds, Double rating) {
         this.homeId = homeId;
         this.propertyType = propertyType;
         this.homeName = homeName;
@@ -371,11 +371,11 @@ public class Home {
         this.description = description;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return Rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         Rating = rating;
     }
 }

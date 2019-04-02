@@ -2,6 +2,7 @@ package daos;
 
 import models.Booking;
 import models.Rating;
+import play.Logger;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.Collection;
 
 public class RatingDaoImpl implements RatingDao{
+    private final static Logger.ALogger LOGGER = Logger.of(daos.RatingDaoImpl.class);
 
     final JPAApi jpaApi;
 
@@ -31,14 +33,15 @@ public class RatingDaoImpl implements RatingDao{
     }
 
     @Override
-    public Integer getRatingsByHomeId(Integer homeId) {
-        Integer rating = null;
+    public Double getRatingsByHomeId(Integer homeId) {
+        Double rating = null;
 
         try {
-            String queryString = "select avg(rating) from rating  where ratingId in ( select ratingId from rating where home.homeId = '" + homeId + "')";
-            TypedQuery<Integer> query = jpaApi.em().createQuery(queryString, Integer.class);
+            String queryString = "select avg(rating) from Rating where ratingId in (select ratingId from Rating where home.homeId = '"+ homeId+"')";
+            TypedQuery<Double> query = jpaApi.em().createQuery(queryString, Double.class);
 
             rating = query.getSingleResult();
+            LOGGER.debug("rating is " + rating);
         }
         catch (NoResultException nre){
 

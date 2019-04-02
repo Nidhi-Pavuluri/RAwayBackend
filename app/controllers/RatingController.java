@@ -58,7 +58,7 @@ public class RatingController extends Controller {
 
     @Transactional
     public Result getAvgRatingsByHome(Integer id){
-        Integer avgRating  = 0;
+        Double avgRating  = 0.0;
 
         if (null == id) {
             return badRequest("Home Id must be provided");

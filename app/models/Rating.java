@@ -24,12 +24,12 @@ public class Rating {
 
     @Basic
     @JsonProperty("rating")
-    private Integer rating;
+    private Double rating;
 
     public Rating() {
     }
 
-    public Rating(Integer ratingId, Home home, User user, Integer rating) {
+    public Rating(Integer ratingId, Home home, User user, Double rating) {
         this.ratingId = ratingId;
         this.home = home;
         this.user = user;
@@ -60,11 +60,11 @@ public class Rating {
         this.user = user;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }

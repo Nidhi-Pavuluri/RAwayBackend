@@ -6,5 +6,5 @@ import java.util.Collection;
 
 public interface RatingDao {
     Rating create(Rating booking);
-    Integer getRatingsByHomeId(Integer homeId);
+    Double getRatingsByHomeId(Integer homeId);
 }
