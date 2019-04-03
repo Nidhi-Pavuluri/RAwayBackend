@@ -17,6 +17,8 @@ GET /images/home/:id        controllers.ImagesController.getImagesByHomeId(id: I
 
 POST /booking               controllers.BookingController.createBooking()
 GET  /bookingsByHome/:id    controllers.BookingController.getDatesByHomeId(id: Integer)
+GET  /bookingsByUser/:id        controllers.BookingController.getHomeDetailsByUserId(id: Integer)
+
 
 POST /rating               controllers.RatingController.createRating()
 GET  /ratingsByHome/:id    controllers.RatingController.getAvgRatingsByHome(id: Integer)

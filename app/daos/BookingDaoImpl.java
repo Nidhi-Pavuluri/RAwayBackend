@@ -45,4 +45,38 @@ public class BookingDaoImpl implements BookingDao{
             return null;
         return bookings;
     }
+
+    @Override
+    public Collection<Booking> getBookingsByUserId(Integer id) {
+        Collection<Booking> bookings = null;
+
+        try {
+            TypedQuery<Booking> query = jpaApi.em().createQuery("select b from Booking b where user.userId = '" + id + "'", Booking.class);
+
+            bookings = query.getResultList();
+        }
+        catch (NoResultException nre){
+
+        }
+        if(null == bookings)
+            return null;
+        return bookings;
+    }
+
+    @Override
+    public Integer findHomeidByBookingId(Integer id) {
+       Integer homeId = 0;
+
+        try {
+            TypedQuery<Integer> query = jpaApi.em().createQuery("select home.homeId from Booking  where bookingId = '" + id + "'", Integer.class);
+
+            homeId = query.getSingleResult();
+        }
+        catch (NoResultException nre){
+
+        }
+        if(null == homeId)
+            return 0;
+        return homeId;
+    }
 }

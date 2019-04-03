@@ -190,7 +190,7 @@ public class Home {
         this.latitude = latitude;
         this.longitude = longitude;
         this.bookingIds = bookingIds;
-        Rating = rating;
+        this.Rating = rating;
     }
 
     public Home() {

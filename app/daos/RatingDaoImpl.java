@@ -47,7 +47,7 @@ public class RatingDaoImpl implements RatingDao{
 
         }
         if(null == rating)
-            return null;
+            return 0.0;
         return rating;
 
     }

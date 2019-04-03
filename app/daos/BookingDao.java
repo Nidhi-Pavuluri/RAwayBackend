@@ -10,4 +10,6 @@ public interface BookingDao {
 
     Booking create(Booking booking);
     Collection<Booking> getBookingsByHomeId(Integer id);
+    Collection<Booking> getBookingsByUserId(Integer id);
+    Integer findHomeidByBookingId(Integer id);
 }

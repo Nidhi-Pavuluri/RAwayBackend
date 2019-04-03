@@ -15,9 +15,14 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
-import java.util.Collection;
+import java.awt.print.Book;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class BookingController extends Controller {
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     final HomeDao homeDao;
 
     private final static Logger.ALogger LOGGER = Logger.of(controllers.BookingController.class);
@@ -43,6 +48,7 @@ public class BookingController extends Controller {
 
 
         final User user = (User) ctx().args.get("user");
+        LOGGER.debug("user while creation is "+user);
 
         booking.setUser(user);
         //LOGGER.debug("user id" + booking.getUser());
@@ -62,6 +68,8 @@ public class BookingController extends Controller {
     @Transactional
     public Result getDatesByHomeId(Integer id){
         Collection<Booking> newBookings =null;
+//        final User user = (User) ctx().args.get("user");
+//        LOGGER.debug("user is "+user);
 
         if (null == id) {
             return badRequest("Home Id must be provided");
@@ -74,6 +82,35 @@ public class BookingController extends Controller {
         }
         
         final JsonNode result = Json.toJson(newBookings);
+
+        return ok(result);
+    }
+
+    @Transactional
+    public Result getHomeDetailsByUserId(Integer id){
+        Collection<Booking> newBookings =null;
+        ArrayList list = new ArrayList();
+        if (null == id) {
+            return badRequest("Home Id must be provided");
+        }
+        try{
+            newBookings = bookingDao.getBookingsByUserId(id);
+
+            for(Booking booking : newBookings){
+                Map<String, String> data = new HashMap<>();
+                final Home home = homeDao.findHomeById(bookingDao.findHomeidByBookingId(booking.getBookingId()));
+                data.put(home.getHomeName(), DATE_FORMAT.format(booking.getToDate()));
+                list.add(data);
+            }
+
+            //LOGGER.debug("home id is " + home.getHomeId());
+
+        }
+        catch (NoResultException nre){
+            throw new IllegalArgumentException("No bookings found for the given home id");
+        }
+
+        final JsonNode result = Json.toJson(list);
 
         return ok(result);
     }
