@@ -97,9 +97,11 @@ public class BookingController extends Controller {
             newBookings = bookingDao.getBookingsByUserId(id);
 
             for(Booking booking : newBookings){
-                Map<String, String> data = new HashMap<>();
+                ArrayList data = new ArrayList();
                 final Home home = homeDao.findHomeById(bookingDao.findHomeidByBookingId(booking.getBookingId()));
-                data.put(home.getHomeName(), DATE_FORMAT.format(booking.getToDate()));
+                data.add(home.getHomeId());
+                data.add(home.getHomeName());
+                data.add(DATE_FORMAT.format(booking.getToDate()));
                 list.add(data);
             }
 
