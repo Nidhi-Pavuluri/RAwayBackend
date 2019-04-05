@@ -74,7 +74,7 @@ public class HomeDaoImpl implements HomeDao {
             throw new IllegalArgumentException("Invalid home");
         }
 
-        if(Home.HouseStatus.APPROVED!=existinghome.getHouseStatus() || existinghome.getReportFlag() <= 3 || null != bookingDao.getBookingsByHomeId(existinghome.getHomeId()) ){
+        if(Home.HouseStatus.APPROVED!=existinghome.getHouseStatus() || existinghome.getReportFlag() <= 3 || ( bookingDao.getBookingsByHome(existinghome.getHomeId())!=0 )){
             throw new IllegalArgumentException("Home cannot be deleted");
         }
         jpaApi.em().remove(existinghome);
@@ -96,7 +96,8 @@ public class HomeDaoImpl implements HomeDao {
             throw new IllegalArgumentException("Invalid home");
         }
 
-        if(Home.HouseStatus.PENDING !=existinghome.getHouseStatus() || null != bookingDao.getBookingsByHomeId(existinghome.getHomeId()) ){
+        LOGGER.debug("booking id is " + bookingDao.getBookingsByHomeId(existinghome.getHomeId()));
+        if( bookingDao.getBookingsByHome(existinghome.getHomeId())!=0 ){
             throw new IllegalArgumentException("Home cannot be deleted");
         }
 

@@ -17,7 +17,9 @@ GET /images/home/:id        controllers.ImagesController.getImagesByHomeId(id: I
 
 POST /booking               controllers.BookingController.createBooking()
 GET  /bookingsByHome/:id    controllers.BookingController.getDatesByHomeId(id: Integer)
+GET  /bookingsCountByHome/:id    controllers.BookingController.getBookingsCountByHomeId(id: Integer)
 GET  /bookingsByUser/:id        controllers.BookingController.getHomeDetailsByUserId(id: Integer)
+DELETE  /bookingByBookingId/:id     controllers.BookingController.bookingDeletionById(id: Integer)
 
 
 POST /rating               controllers.RatingController.createRating()
@@ -43,6 +45,7 @@ POST  /homesearch                        controllers.HomeController.homesearch()
 DELETE  /homes/admin/:id                controllers.HomeController.requestedHomeDeletionByAdmin(id: Integer)
 DELETE /homes/report/:id                controllers.HomeController.reportedHomeDeletionByAdmin(id: Integer)
 DELETE  /homes/users/:id                controllers.HomeController.homeDeletionByUser(id: Integer)
+
 
 PUT  /homes/pending/:id                 controllers.HomeController.changePendingStatus(id :Integer)
 PUT  /homes/report/:id                  controllers.HomeController.reportHome(id :Integer)

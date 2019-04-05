@@ -78,9 +78,9 @@ public class BookingController extends Controller {
         newBookings = bookingDao.getBookingsByHomeId(id);
         }
         catch (NoResultException nre){
-            throw new IllegalArgumentException("No bookings found for the given home id");
+           throw new IllegalArgumentException("No bookings found for the given home id");
         }
-        
+
         final JsonNode result = Json.toJson(newBookings);
 
         return ok(result);
@@ -99,6 +99,7 @@ public class BookingController extends Controller {
             for(Booking booking : newBookings){
                 ArrayList data = new ArrayList();
                 final Home home = homeDao.findHomeById(bookingDao.findHomeidByBookingId(booking.getBookingId()));
+                data.add(booking.getBookingId());
                 data.add(home.getHomeId());
                 data.add(home.getHomeName());
                 data.add(DATE_FORMAT.format(booking.getToDate()));
@@ -116,4 +117,41 @@ public class BookingController extends Controller {
 
         return ok(result);
     }
+
+    @Transactional
+    public Result bookingDeletionById(Integer id) {
+
+        if (null == id) {
+            return badRequest("Booking Id must be provided");
+        }
+        final Booking existingBooking = bookingDao.findBookingById(id);
+        final Booking newBooking = bookingDao.delete(existingBooking);
+
+        final JsonNode result = Json.toJson(newBooking);
+
+        return ok(result);
+
+    }
+
+    @Transactional
+    public Result getBookingsCountByHomeId(Integer id){
+        Integer newBookings = 0;
+//        final User user = (User) ctx().args.get("user");
+//        LOGGER.debug("user is "+user);
+
+        if (null == id) {
+            return badRequest("Home Id must be provided");
+        }
+        try{
+            newBookings = bookingDao.getBookingsByHome(id);
+        }
+        catch (NoResultException nre){
+            throw new IllegalArgumentException("No bookings found for the given home id");
+        }
+
+        final JsonNode result = Json.toJson(newBookings);
+
+        return ok(result);
+    }
+
 }
