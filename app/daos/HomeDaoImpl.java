@@ -294,6 +294,11 @@ public class HomeDaoImpl implements HomeDao {
             }
 
 
+
+            sb.append(" order by Rating desc");
+
+            LOGGER.debug("query is " + sb.toString());
+
             TypedQuery<Home> query = jpaApi.em().createQuery(sb.toString(), Home.class);
             homes = query.getResultList();
 
